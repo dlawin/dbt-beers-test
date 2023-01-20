@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: orders_generated
+    description: Randomly generated order data
+    columns:
+      - name: order_number
+        tests:
+          - unique
+          - not_null
+        meta:
+         primary-key: true

@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: beers_with_breweries
+    description: Beers joined with their breweries
+    columns:
+      - name: brewery_id
+        description: "The unique identifier for the brewery"
+        tests:
+          - not_null
+        meta:
+          primary-key: true
+      - name: beer_id
+        tests:
+          - unique
+          - not_null
+        meta:
+          primary-key: true
+      - name: beer_name
+        description: The name of the beer
+        meta:
+          primary-key: true
+      - name: beer_style
+        description: Style of the beer (IPA, Porter, etc)
+      - name: abv
+        description: Alcohol percentage in the beer
+      - name: ibu
+        description: The bitterness of the beer in IBUs
+      - name: bitterness
+        description: The bitterness category of the beer (based on IBUs)
+      - name: ounces
+        description: The volume of the beer
+      - name: brewery_name
+        description: Name of the brewery
+      - name: brewery_city
+        description: City of the brewery
+      - name: brewery_state
+        description: State of the brewery

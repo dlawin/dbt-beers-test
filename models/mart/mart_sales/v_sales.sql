@@ -1,9 +1,3 @@
-{{ config(
-    materialized="table",
-    persist_docs={"relation": true, "columns": true},
-    transient=false
-) }}
-
 SELECT
  beers_with_breweries.beer_id               AS beer_id,
  beers_with_breweries.beer_name             AS beer_name,
@@ -26,8 +20,8 @@ SELECT
  order_lines.price                          AS order_li_price_each,
  order_lines.quantity * order_lines.price   AS order_li_price_total
 
-FROM {{ ref('orders') }} orders
-JOIN {{ ref('order_lines') }} order_lines USING (order_no)
+FROM {{ ref('stg_orders') }} orders
+JOIN {{ ref('stg_order_lines') }} order_lines USING (order_no)
 JOIN {{ ref('beers_with_breweries') }} beers_with_breweries USING (beer_id)
 
 WHERE orders.status = 'DELIVERED'

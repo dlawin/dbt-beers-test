@@ -1,0 +1,9 @@
+version: 2
+
+models:
+
+  - name: stg_breweries
+    columns:
+      - name: brewery_id
+        meta:
+         primary-key: true

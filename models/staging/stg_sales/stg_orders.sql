@@ -1,7 +1,7 @@
-{{ config(
-    materialized='table',
-    persist_docs={"relation": true, "columns": true}
-) }}
+
+-- We'll fake some data, since this is an example repository
+-- we want to make sure that we continue to generate data up
+-- to today
 
 WITH generated_orders AS (
     {% for day_ago in range(30) %}
@@ -12,9 +12,10 @@ WITH generated_orders AS (
                         DATEADD(Day, -1 * {{ day_ago }}, CURRENT_DATE),
                         {{ yyymmdd() }}
                    ),
-                   '11'
+                   '{{ order_number }}'
              )::int                                                            AS order_no,
 
+             {{ randint(123456, 654321) }}                                  AS customer_id,
 
              {% if order_number is divisibleby 13 %}
                 'PENDING'                                                      AS status,

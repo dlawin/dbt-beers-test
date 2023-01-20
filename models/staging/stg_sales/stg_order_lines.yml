@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: stg_order_lines
+    columns:
+      - name: order_no
+        meta:
+         primary-key: true
+        tests:
+          - relationships:
+              to: ref('stg_orders')
+              field: order_no

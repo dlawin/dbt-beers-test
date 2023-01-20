@@ -1,0 +1,13 @@
+version: 2
+
+models:
+  - name: stg_orders
+    columns:
+      - name: order_no
+        meta:
+         primary-key: true
+      - name: order_line
+        meta:
+         primary-key: true
+        tests:
+          - unique

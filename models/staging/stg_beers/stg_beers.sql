@@ -1,8 +1,3 @@
-
-{{ config(
-    materialized="table"
-) }}
-
 SELECT
   id            AS beer_id,
   TRIM(name)    AS beer_name,
