@@ -16,14 +16,10 @@ dbt_beers_test:
       threads: 4
     pr:
       type: snowflake
-      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
-
-      # User/password auth
-      user: "{{ env_var('SNOWFLAKE_USER') | as_text }}"
-      password: "{{ env_var('SNOWFLAKE_PASSWORD') | as_text }}"
+      account: ""
 
       role: DBT_BEERS_ROLE
-      database: "{{ env_var('PR_DATABASE') | as_text }}"
+      database: "{{ 'PR_' ~ env_var('DBT_CLOUD_PR_ID') | as_text }}"
       warehouse: DBT_BEERS_WH
       schema: default_schema
       threads: 4
