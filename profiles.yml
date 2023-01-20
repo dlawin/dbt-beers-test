@@ -1,4 +1,4 @@
-snowflake:
+dbt_beers_test:
   target: dev
   outputs:
     dev:
@@ -9,34 +9,34 @@ snowflake:
       user: "{{ env_var('SNOWFLAKE_USER') | as_text }}"
       password: "{{ env_var('SNOWFLAKE_PASSWORD') | as_text }}"
 
-      role: DATAFOLDROLE
-      database: INTEGRATION
-      warehouse: INTEGRATION
-      schema: "{{ env_var('SNOWFLAKE_SCHEMA') | as_text }}"
-      threads: 5
-
-databricks:
-  target: dev
-  outputs:
-    dev:
-      type: databricks
-      schema: beers
-      host: "{{ env_var('DATABRICKS_HOST') | as_text }}"
-      http_path: "{{ env_var('DATABRICKS_PATH') | as_text }}"
-      token: "{{ env_var('DATABRICKS_TOKEN') | as_text }}"
-
-production:
-  target: dev
-  outputs:
-    dev:
+      role: DBT_BEERS_ROLE
+      database: DBT_BEERS_DEV_DAN #change if you're not using ~/.dbt/profiles.yml
+      warehouse: DBT_BEERS_WH
+      schema: default_schema
+      threads: 4
+    pr:
       type: snowflake
       account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
 
+      # User/password auth
+      user: "{{ env_var('SNOWFLAKE_USER') | as_text }}"
+      password: "{{ env_var('SNOWFLAKE_PASSWORD') | as_text }}"
+
+      role: DBT_BEERS_ROLE
+      database: "{{ env_var('PR_DATABASE') | as_text }}"
+      warehouse: DBT_BEERS_WH
+      schema: default_schema
+      threads: 4
+    production:
+      type: snowflake
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+
+      # User/password auth
       user: "{{ env_var('SNOWFLAKE_USER') | as_text }}"
       password: "{{ env_var('SNOWFLAKE_PASSWORD') | as_text }}"
 
       role: DATAFOLDROLE
-      database: INTEGRATION
+      database: DBT_BEERS_PROD
       warehouse: INTEGRATION
-      schema: "{{ env_var('SNOWFLAKE_SCHEMA') | as_text }}"
-      threads: 5
+      schema: default_schema
+      threads: 4

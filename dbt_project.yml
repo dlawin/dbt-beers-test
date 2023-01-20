@@ -1,17 +1,9 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
 name: 'beer_analytics'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
-profile: snowflake
+profile: dbt_beers_test
 
-# These configurations specify where dbt should look for different types of files.
-# The `source-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
 analysis-paths: ["analysis"]
 test-paths: ["tests"]
@@ -24,24 +16,31 @@ clean-targets:         # directories to be removed by `dbt clean`
     - "target"
     - "dbt_modules"
 
-
 seeds:
   beer_analytics:
     +enabled: true
     seed_beers:
-      +column_types:
-        ibu: decimal
-        abv: decimal
+      +schema: seed_beers
+      seed_beers:
+        +column_types:
+            ibu: decimal
+            abv: decimal
 
-
-# Configuring models
-# Full documentation: https://docs.getdbt.com/docs/configuring-models
-
-# In this example config, we tell dbt to build all models in the example/ directory
-# as tables. These settings can be overridden in the individual model files
-# using the `{{ config(...) }}` macro.
 models:
-  beer_analytics:
-      # Applies to all files under models/example/
-      beers:
-          materialized: view
+    +transient: false
+    beer_analytics:
+        intermediate:
+            int_beers:
+                +schema: int_beers
+            int_sales:
+                +schema: int_sales
+        mart:
+            mart_beers:
+                +schema: mart_beers
+            mart_sales:
+                +schema: mart_sales
+        staging:
+            stg_beers:
+                +schema: stg_beers
+            stg_sales:
+                +schema: stg_sales

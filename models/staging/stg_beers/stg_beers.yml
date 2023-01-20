@@ -1,0 +1,40 @@
+version: 2
+
+models:
+  - name: stg_beers
+    description: Beers description
+    tags: 
+      - products
+      - sales
+
+    columns:
+      - name: beer_id
+        tests:
+          - unique
+          - not_null
+        meta:
+          primary-key: true
+         
+      - name: beer_id
+        description: The unique indentifier of the beer
+
+      - name: beer_name
+        description: The name of the beer as on the label
+
+      - name: beer_style
+        description: The style of the beer (IPA, Porter, etc) 
+
+      - name: abv
+        description: Alcohol by volume
+
+      - name: ibu
+        description: Bitterness in International Bitterness Units
+
+      - name: bitterness
+        description: The bitterness category of the beer (based on IBUs)
+
+      - name: brewery_id
+        description: The unique indentifier of the beer
+      
+      - name: ounces
+        description: Volume of a single unit

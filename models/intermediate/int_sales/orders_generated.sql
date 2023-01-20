@@ -1,9 +1,3 @@
-{{ config(
-    materialized='table',
-    persist_docs={"relation": true, "columns": true}
-) }}
-
-
 with dates as ( --generate dates for the last 90 days
   select
   dateadd(day,-seq4(),current_date) as _date
@@ -113,7 +107,7 @@ orders.order_date
 ,breweries.brewery_state
 ,breweries.brewery_country
 from orders_raw as orders
-inner join  {{ ref('beers') }} as beers
+inner join  {{ ref('stg_beers') }} as beers
     on orders.beer_id = beers.beer_id
-inner join  {{ ref('breweries') }} as breweries
+inner join  {{ ref('stg_breweries') }} as breweries
     on beers.brewery_id = breweries.brewery_id

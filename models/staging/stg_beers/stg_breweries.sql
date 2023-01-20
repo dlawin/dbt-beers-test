@@ -1,8 +1,3 @@
-
-{{ config(
-    materialized="table"
-) }}
-
 SELECT
   id                    AS brewery_id,
   trim(name)            AS brewery_name,

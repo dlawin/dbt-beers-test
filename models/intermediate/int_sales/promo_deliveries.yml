@@ -1,0 +1,14 @@
+version: 2
+
+models:
+  - name: promo_deliveries
+    tags:
+      - marketing
+    meta:
+      owner: gleb@datafold.com
+    columns:
+      - name: customer_id
+        description: Customer id
+        meta: 
+          primary-key: true
+

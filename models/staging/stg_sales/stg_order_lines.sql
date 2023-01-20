@@ -1,8 +1,3 @@
-{{ config(
-    materialized='table',
-    unique_key='order_line',
-    persist_docs={"relation": true, "columns": true}
-) }}
 
 -- We'll fake some data, since this is an example repository
 -- we want to make sure that we continue to generate data up
@@ -25,7 +20,7 @@ SELECT {{ date_format() }}(
            SELECT MOD(
                       ABS(HASH( order_number + line_no )),
                       (
-                          SELECT MAX(beer_id) FROM {{ ref('beers') }}
+                          SELECT MAX(beer_id) FROM {{ ref('stg_beers') }}
                       )
            )
        )                                                   AS beer_id,
